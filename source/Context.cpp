@@ -34,3 +34,14 @@ bool Context::term()
 	handle = nullptr;
 	return true;
 }
+
+
+double Context::getTime()
+{
+	return glfwGetTime();
+}
+
+bool Context::getKey(int key)
+{
+	return glfwGetKey(handle, key);
+}

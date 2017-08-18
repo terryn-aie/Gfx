@@ -20,4 +20,7 @@ public:
 
 	// tell the window to close
 	bool term();
+
+	double getTime();
+	bool getKey(int key);
 };
