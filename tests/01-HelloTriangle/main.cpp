@@ -23,13 +23,13 @@ int main()
 						  0,2,3};
 
 	Geometry g = makeGeometry(verts, 4, idxs, 6);
-	Geometry gt = makeNGon(5, .5f);
+	Geometry gt = makeCheckerboard(4, 1);
 
 	const char* vsource = // once per vertex
 		"#version 450\n"
 		"layout(location = 0) in vec4 position;\n"
 		"layout(location = 1) in vec4 color;\n"
-		"out vec4 vColor;\n"
+		"flat out vec4 vColor;\n"
 		"void main ()\n"
 		"{\n"
 		"gl_Position = position;\n"
@@ -39,7 +39,7 @@ int main()
 	const char* fsource = // once per pixel
 		"#version 450\n"
 		"out vec4 outColor;\n"
-		"in vec4 vColor;\n"
+		"flat in vec4 vColor;\n"
 		"void main ()\n"
 		"{\n"
 		"outColor = vColor;\n"
@@ -51,7 +51,7 @@ int main()
 
 	while (context.step())
 	{
-		s0_draw(f, s, g);
+		//s0_draw(f, s, g);
 		s0_draw(f, s, gt);
 	}
 
