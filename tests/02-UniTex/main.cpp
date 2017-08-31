@@ -33,9 +33,6 @@ int main()
 		"void main ()\n"
 		"{\n"
 		"gl_Position = position;\n"
-		//"gl_Position.x += xpos;\n"
-		//"gl_Position.y += ypos;\n"
-		//"gl_Position.y += sin(time+position.x)/5.0;\n"
 		"vColor = color;\n"
 		"vUV = uv;\n"
 		"}\n";
@@ -44,7 +41,6 @@ int main()
 		"#version 450\n"
 		"out vec4 outColor;\n"
 		"layout(location = 0) uniform float time;\n"
-		//"layout(location = 1) uniform int tog;\n"
 		"layout(location = 4) uniform sampler2D map;\n"
 		"layout(location = 5) uniform sampler2D mask;\n"
 		"in vec4 vColor;\n"
@@ -54,18 +50,11 @@ int main()
 		"vec2 uv = vUV;\n"
 		"uv.x += sin(time + uv.y);\n"
 		"outColor = texture(map,uv) * texture(mask,uv + vec2(0,cos(time+uv.x))).r;\n"
-		//"outColor = vec4(0,0,0,1);\n"
-		//"if(tog == 1)\n"
-		//"outColor = 1.0 - vColor;\n"
-		//"else outColor = vColor;\n"
-		//"outColor *= 1.0+cos(time*sin(time)+gl_FragCoord.y/10)/2.0+cos(time+gl_FragCoord.y/8)+sin(time*20+gl_FragCoord.x/5)/2.0;\n"
-		//"vec2 det = vec2(20.0,20.0);\n"
-		//"outColor *= 1.0-distance(mod(gl_FragCoord.xy,det),det/2.0)/15.0;"
-		//"\n"
 		"}\n";
 
 	Shader s = makeShader(vsource, fsource);
 
+	// http://shdr.bkcore.com/
 	Framebuffer f = { 0, 800, 800 };
 
 	// RGB texture (3 channels), 2x2
@@ -104,6 +93,8 @@ int main()
 
 		setUniform(s, 4, t_magyel, 0);
 		setUniform(s, 5, t_mask,   1);
+
+		// setUniforms(s, time, pos, t_magyel, t_mask, tex1, tex2);
 
 		s0_draw(f, s, g);
 	}
