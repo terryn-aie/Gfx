@@ -22,6 +22,8 @@ int main()
 	solveTangents(vquad, 4, quadidx, 6);
 	Geometry quad = makeGeometry(vquad, 4, quadidx, 6);
 
+	Geometry ss_geo = loadGeometry("../../resources/models/soulspear.obj");
+
 	Texture floor_normal  = loadTexture("../../resources/textures/soulspear_normal.tga");
 	Texture floor_diffuse = loadTexture("../../resources/textures/soulspear_diffuse.tga");
 
@@ -32,7 +34,7 @@ int main()
 
 	// Camera
 	glm::mat4 cam_view = glm::lookAt(glm::vec3(0, 3, -4),
-									 glm::vec3(0, 0,  0),
+									 glm::vec3(0, 1,  0),
 									 glm::vec3(0, 1,  0));
 	glm::mat4 cam_proj = glm::perspective(45.f, 800.f / 600.f, .01f, 100.f);	
 	
@@ -46,9 +48,11 @@ int main()
 	{
 		float time = context.getTime();
 
-		go_model = glm::rotate(time, glm::vec3(0,1,0))
+		/*go_model = glm::rotate(time, glm::vec3(0,1,0))
 				   * glm::rotate(glm::radians(90.f), glm::vec3(1,0,0))
-				   * glm::scale(glm::vec3(2,2,1));
+				   * glm::scale(glm::vec3(2,2,1));*/
+
+		go_model = glm::rotate(time, glm::vec3(0, 1, 0));
 
 		clearFramebuffer(screen);
 		setFlags(RenderFlag::DEPTH);
@@ -60,7 +64,7 @@ int main()
 							go_model, floor_normal, floor_diffuse,		// Surface information
 							light_direction);					// Light Information
 		
-		s0_draw(screen, standard, quad);
+		s0_draw(screen, standard, ss_geo);
 	}
 	context.term();
 	return 0;

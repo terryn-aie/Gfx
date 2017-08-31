@@ -24,15 +24,10 @@ float phong(vec3 N, vec3 L, vec3 V, float power)
 
 void main()
 {
-	vec4 tN = 2*texture(normalMap,vUV)-1;
-	tN.a = 0;
-	tN = normalize(tN);
+	vec4 tN = 1-2*texture(normalMap,vUV);
+
 	vec3 N = (vTBN * tN).xyz;
-	vec3 V = view[2].xyz;
 
-	float spec = phong(N,L,V,8.0);
-	float lamb = lambert(N,L);
 
-	outColor = texture(diffuseMap,vUV) * lamb
-					   + vec4(1,1,0,1) * spec;
+	outColor = vec4(N,1);
 }
