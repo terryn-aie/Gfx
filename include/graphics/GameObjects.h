@@ -1,59 +1,32 @@
 #pragma once
 
+#include "glm\glm.hpp"
+
 #include "RenderObjects.h"
-#include "glm\ext.hpp"
 
+struct Camera
+{
+	glm::mat4 proj;
+	glm::mat4 view;
+};
 
-
-
-// 0: model, 1: diffuse, 2: specular, 3: normal, 4: gloss
 struct SpecGloss
 {
 	Geometry geo;
 
-	// uniforms
-	glm::mat4 model;		
+	glm::mat4 model;
 	Texture diffuse;
 	Texture specular;
 	Texture normal;
 	float gloss;
 };
 
-// 0: proj, 1: view
-struct Camera
+struct StandardLight
 {
-	glm::mat4 proj, view;
-};
-
-// 0: proj, 1: view, 2: color, 3: intensity
-struct DirectionalLight
-{
-	glm::vec3 center; // location from which the shadow map is drawn.
-	float size;		  // area that the shadow map covers.
-
-	glm::vec3 direction;
+	glm::vec3 dir;
 	glm::vec4 color;
 	float intensity;
-
-	glm::mat4 getView() const { return glm::lookAt(direction + center, center, glm::vec3(0, 1, 0)); }
-	glm::mat4 getProj() const { return glm::ortho<float>(-size, size, -size, size, -size, size); }
+	glm::vec4 ambient;
+	int type;
 };
 
-
-struct SimplePresetScene
-{
-	Camera cam;
-	SpecGloss go[3];
-	DirectionalLight dl[2];
-
-	SimplePresetScene();
-};
-
-
-
-namespace __internal
-{
-	void t_setUniform(const Shader &s, int &loc_io, int &tex_io, const SpecGloss &val);
-	void t_setUniform(const Shader &s, int &loc_io, int &tex_io, const Camera &val);
-	void t_setUniform(const Shader &s, int &loc_io, int &tex_io, const DirectionalLight &val);
-}
