@@ -75,5 +75,11 @@
     <None Include="cpass.frag">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="lpassD.vert">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="lpassD.frag">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
