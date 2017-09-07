@@ -87,15 +87,20 @@ void main()
 		}
 		////////////////////////////
 		// LPass
-		//1. Provide support for "additive blending."
-		//2. Define a directional light object and uniforms (shadowable).
-		//3. Construct directional light shaders.
+		clearFramebuffer(lbuffer);
+		setFlags(RenderFlag::ADDITIVE);
+		for (int i = 0; i < 2; ++i)
+		{
+			loc = slot = 0;
+			setUniforms(lpassD, loc, slot, cam, dlights[i], gbuffer.targets[3]);
+			s0_draw(lbuffer, lpassD, quad);
+		}
 
 		////////////////////////////
 		// CPass
 		loc = slot = 0;
 		clearFramebuffer(screen);
-		setUniforms(cpass, loc, slot, gbuffer.targets[3]);
+		setUniforms(cpass, loc, slot, lbuffer.targets[0]);
 		s0_draw(screen, cpass, quad);
 	}
 	context.term();
