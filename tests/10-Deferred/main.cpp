@@ -52,12 +52,25 @@ void main()
 	cam.view = glm::lookAt(glm::vec3(0, 2, 5), glm::vec3(0, 1, 0), glm::vec3(0, 1, 0));
 	cam.proj = glm::perspective(45.f, 1280.f / 720.f, 1.f, 10.f);
 
-	
-	Shader gpass = loadShader("../../resources/shaders/gpass.vert", "../../resources/shaders/gpass.frag");
-	Shader cpass = loadShader("../../resources/shaders/cpass.vert", "../../resources/shaders/cpass.frag");
+	DirectionalLight dlights[2];
+
+	dlights[0].range = 10;
+	dlights[0].intensity = 1;
+	dlights[0].color = glm::vec4(1, 1, 0, 1);
+	dlights[0].direction = glm::vec3(1, 0, 0);
+
+	dlights[1].range = 10;
+	dlights[1].intensity = 1;
+	dlights[1].color = glm::vec4(0, 0, 1, 1);
+	dlights[1].direction = glm::vec3(-1, 0, 0);
+
+	Shader gpass  = loadShader("../../resources/shaders/gpass.vert", "../../resources/shaders/gpass.frag");
+	Shader cpass  = loadShader("../../resources/shaders/cpass.vert", "../../resources/shaders/cpass.frag");
+	Shader lpassD = loadShader("../../resources/shaders/lpassD.vert", "../../resources/shaders/lpassD.frag");
 
 	Framebuffer screen = {0,1280,720};
 	Framebuffer gbuffer = makeFramebuffer(1280, 720, 4, true, 2, 2);
+	Framebuffer lbuffer = makeFramebuffer(1280, 720, 4, false, 2, 0);
 
 	int loc = 0,  slot = 0;
 	while (context.step())
