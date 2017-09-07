@@ -19,7 +19,7 @@ layout(location = 3) out vec4 outNormal;
 void main()
 {
 	outDiffuse = texture(diffuseMap, vUV);
-	outSpecular = texture(specularMap, vUV);
+	outSpecular = texture(specularMap, vUV);	
 
 	outNormal = (vTBN*(2*texture(normalMap, vUV)-1));
 	outNormal.w = gloss;
