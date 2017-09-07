@@ -2,10 +2,14 @@
 #include "graphics\Vertex.h"
 #include "graphics\Load.h"
 #include "glm\ext.hpp"
+#include "graphics\Context.h"
 
 
 void main()
 {
+	Context context;
+	context.init(12802, 720);
+
 	Vertex vquad[] = { { { -1,-1,0,1 },{},{ 0,0 },{ 0,0,1,0 } },{ { 1,-1,0,1 },{},{ 1,0 },{ 0,0,1,0 } },{ { 1, 1,0,1 },{},{ 1,1 },{ 0,0,1,0 } },{ { -1, 1,0,1 },{},{ 0,1 },{ 0,0,1,0 } } };
 	unsigned quadidx[] = { 0,1,3, 1,2,3 };
 	solveTangents(vquad, 4, quadidx, 6);
@@ -46,4 +50,11 @@ void main()
 	Camera cam;
 	cam.view = glm::lookAt(glm::vec3(0, 2, 5), glm::vec3(0, 1, 0), glm::vec3(0, 1, 0));
 	cam.proj = glm::perspective(45.f, 1280.f / 720.f, 1.f, 10.f);
+
+	
+	Shader gpass = loadShader("../../resources/shaders/gpass.vert", "../../resources/shaders/gpass.frag");
+	Shader cpass = loadShader("../../resources/shaders/cpass.vert", "../../resources/shaders/cpass.frag");
+
+	Framebuffer screen = {0,1280,720};
+	Framebuffer gbuffer = makeFramebuffer(1280, 720, 4, true, 2, 2);
 }
