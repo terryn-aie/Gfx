@@ -3,12 +3,13 @@
 #include "graphics\Load.h"
 #include "glm\ext.hpp"
 #include "graphics\Context.h"
+#include "graphics\draw.h"
 
 
 void main()
 {
 	Context context;
-	context.init(12802, 720);
+	context.init(1280, 720);
 
 	Vertex vquad[] = { { { -1,-1,0,1 },{},{ 0,0 },{ 0,0,1,0 } },{ { 1,-1,0,1 },{},{ 1,0 },{ 0,0,1,0 } },{ { 1, 1,0,1 },{},{ 1,1 },{ 0,0,1,0 } },{ { -1, 1,0,1 },{},{ 0,1 },{ 0,0,1,0 } } };
 	unsigned quadidx[] = { 0,1,3, 1,2,3 };
@@ -57,4 +58,26 @@ void main()
 
 	Framebuffer screen = {0,1280,720};
 	Framebuffer gbuffer = makeFramebuffer(1280, 720, 4, true, 2, 2);
+
+	int loc = 0,  slot = 0;
+	while (context.step())
+	{
+		////////////////////////////
+		// GPass
+		clearFramebuffer(gbuffer);
+		setFlags(RenderFlag::DEPTH);
+		for (int i = 0; i < 3; ++i)
+		{
+			loc = slot = 0;
+			setUniforms(gpass, loc, slot, cam, objects[i]);
+			s0_draw(gbuffer, gpass, objects[i].geo);
+		}
+		////////////////////////////
+		// CPass
+		loc = slot = 0;
+		clearFramebuffer(screen);
+		setUniforms(cpass, loc, slot, gbuffer.targets[0]);
+		s0_draw(screen, cpass, quad);
+	}
+	context.term();
 }
