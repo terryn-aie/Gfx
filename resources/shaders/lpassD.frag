@@ -3,7 +3,7 @@
 in vec2 vUV;
 
 // cam's view is important!
-layout(location =  1) uniform mat4 view;
+layout(location = 1) uniform mat4 view;
 
 layout(location = 3) uniform mat4 lightView;
 	
