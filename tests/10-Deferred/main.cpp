@@ -11,6 +11,8 @@ void main()
 	solveTangents(vquad, 4, quadidx, 6);
 	Geometry quad = makeGeometry(vquad, 4, quadidx, 6);
 
+	//////////////////////////////////////////////
+	// Game objects/geometry
 	SpecGloss objects[8];
 
 	// floor
@@ -38,4 +40,5 @@ void main()
 	objects[2].specular = loadTexture("../../resources/textures/earth_specular.jpg");
 	objects[2].normal = loadTexture("../../resources/textures/earth_normal.jpg");
 	objects[2].gloss = 4;
+	objects[2].model = glm::scale(glm::vec3(2, 2, 2)) * glm::translate(glm::vec3(2, 1, -1));
 }
