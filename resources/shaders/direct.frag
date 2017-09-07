@@ -17,7 +17,6 @@ uniform mat4 clipToUV = mat4(0.5f, 0.0f, 0.0f, 0.0f,
 							 0.0f, 0.0f, 0.5f, 0.0f,
 							 0.5f, 0.5f, 0.5f, 1.0f);
 
-
 out vec4 outColor;
 
 void main()
