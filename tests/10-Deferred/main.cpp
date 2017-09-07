@@ -41,4 +41,9 @@ void main()
 	objects[2].normal = loadTexture("../../resources/textures/earth_normal.jpg");
 	objects[2].gloss = 4;
 	objects[2].model = glm::scale(glm::vec3(2, 2, 2)) * glm::translate(glm::vec3(2, 1, -1));
+
+	// Camera
+	Camera cam;
+	cam.view = glm::lookAt(glm::vec3(0, 2, 5), glm::vec3(0, 1, 0), glm::vec3(0, 1, 0));
+	cam.proj = glm::perspective(45.f, 1280.f / 720.f, 1.f, 10.f);
 }
