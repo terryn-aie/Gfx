@@ -73,10 +73,16 @@ void main()
 			s0_draw(gbuffer, gpass, objects[i].geo);
 		}
 		////////////////////////////
+		// LPass
+		//1. Provide support for "additive blending."
+		//2. Define a directional light object and uniforms (shadowable).
+		//3. Construct directional light shaders.
+
+		////////////////////////////
 		// CPass
 		loc = slot = 0;
 		clearFramebuffer(screen);
-		setUniforms(cpass, loc, slot, gbuffer.targets[0]);
+		setUniforms(cpass, loc, slot, gbuffer.targets[3]);
 		s0_draw(screen, cpass, quad);
 	}
 	context.term();
