@@ -30,3 +30,9 @@ struct StandardLight
 	int type;
 };
 
+
+namespace __internal
+{
+	void t_setUniform(const Shader &s, int &loc_io, int &tex_io, const Camera &val);
+	void t_setUniform(const Shader &s, int &loc_io, int &tex_io, const SpecGloss &val);
+}
