@@ -57,7 +57,7 @@ void main()
 	dlights[0].range = 10;
 	dlights[0].intensity = 1;
 	dlights[0].color = glm::vec4(1, 1, 0, 1);
-	dlights[0].direction = glm::normalize(glm::vec3(1, 0, 0));
+	dlights[0].direction = glm::normalize(glm::vec3(1, -1, -1));
 
 	dlights[1].range = 10;
 	dlights[1].intensity = 1;
@@ -90,7 +90,7 @@ void main()
 		////////////////////////////
 		// LPass
 		clearFramebuffer(lbuffer);
-		for (int i = 0; i < 2; ++i)
+		for (int i = 0; i < 1; ++i)
 		{
 			//////////////////////////////////
 			/// SPass Pre-Pass
@@ -106,7 +106,8 @@ void main()
 			// LPass
 			setFlags(RenderFlag::ADDITIVE);
 			loc = slot = 0;
-			setUniforms(lpassD, loc, slot, cam, dlights[i], gbuffer.targets[3], gbuffer.targets[2], sbuffer.depthTarget);
+			setUniforms(lpassD, loc, slot, cam, dlights[i], 
+								gbuffer.targets[3], gbuffer.targets[2], sbuffer.depthTarget);
 			s0_draw(lbuffer, lpassD, quad);
 		}
 
@@ -114,8 +115,8 @@ void main()
 		// CPass
 		loc = slot = 0;
 		clearFramebuffer(screen);
-		setUniforms(cpass, loc, slot, gbuffer.targets[0],
-									  lbuffer.targets[0]);
+		setUniforms(cpass, loc, slot, sbuffer.depthTarget,
+									  sbuffer.depthTarget);
 		s0_draw(screen, cpass, quad);
 	}
 	context.term();
