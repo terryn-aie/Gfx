@@ -10,6 +10,6 @@ layout(location = 1) uniform sampler2D lDiffuse;
 
 void main ()
 {
-	outColor = texture(gDiffuse, vUV.xy)
-			 * texture(lDiffuse, vUV.xy);
+	outColor = texture(gDiffuse, vUV.xy);
+			// * texture(lDiffuse, vUV.xy);
 }

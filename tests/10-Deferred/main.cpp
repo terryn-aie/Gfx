@@ -116,8 +116,7 @@ void main()
 		loc = slot = 0;
 		clearFramebuffer(screen);
 		setFlags(RenderFlag::NONE);
-		setUniforms(cpass, loc, slot, lbuffer.targets[0],
-									  lbuffer.targets[0]);
+		setUniforms(cpass, loc, slot, gbuffer.targets[2], gbuffer.targets[2]);
 		s0_draw(screen, cpass, quad);
 	}
 	context.term();

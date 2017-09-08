@@ -44,6 +44,4 @@ void main()
 
 	outDiffuse = lightColor * intensity * lamb * visibility;
 
-	outDiffuse = sUV;
-
 }
