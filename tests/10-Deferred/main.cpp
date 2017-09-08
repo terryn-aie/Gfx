@@ -115,8 +115,9 @@ void main()
 		// CPass
 		loc = slot = 0;
 		clearFramebuffer(screen);
-		setUniforms(cpass, loc, slot, sbuffer.depthTarget,
-									  sbuffer.depthTarget);
+		setFlags(RenderFlag::NONE);
+		setUniforms(cpass, loc, slot, lbuffer.targets[0],
+									  lbuffer.targets[0]);
 		s0_draw(screen, cpass, quad);
 	}
 	context.term();

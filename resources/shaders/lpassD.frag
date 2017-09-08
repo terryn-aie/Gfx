@@ -34,7 +34,7 @@ void main()
 	vec4 sUV = clipToUV * lightProj * lightView * inverse(view) * vPos;	
 
 	float visibility = 1;
-	if(texture(shadowMap, sUV.xy).r < sUV.z - shadowBias)
+	if(texture(shadowMap, sUV.xy).r < sUV.z)
 		visibility = 0;
 
 	//////////////
@@ -43,4 +43,7 @@ void main()
 	float lamb = max(0, dot(-L, N));
 
 	outDiffuse = lightColor * intensity * lamb * visibility;
+
+	outDiffuse = sUV;
+
 }
