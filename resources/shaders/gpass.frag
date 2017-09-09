@@ -9,6 +9,7 @@ layout(location = 6) uniform float gloss;
 in vec2 vUV;
 in vec3 vPos;
 in mat4 vTBN;
+in vec3 vNormal;
 
 layout(location = 0) out vec4 outDiffuse;
 layout(location = 1) out vec4 outSpecular;
@@ -23,6 +24,8 @@ void main()
 
 	outNormal = (vTBN*(2*texture(normalMap, vUV)-1));
 	outNormal.w = gloss;
+
+	outNormal = vec4(vNormal,0);
 
 	outPosition = vec4(vPos,1);
 }

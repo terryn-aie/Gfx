@@ -12,9 +12,11 @@ layout(location = 2) uniform mat4 model;
 
 out vec4 vPos;
 out vec2 vUV;
+out vec3 vNormal;
 
 void main()
 {
+	vNormal = (model * normal).xyz;
 	vUV = texcoord;
 	vPos = model * position;
 	gl_Position = proj * view * model * position;

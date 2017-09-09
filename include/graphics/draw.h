@@ -4,8 +4,13 @@ struct Geometry;
 struct Shader;
 struct Framebuffer;
 struct Texture;
+struct ParticleGeometry;
 
 #include <glm\fwd.hpp>
+
+
+void update(const Shader &s, const ParticleGeometry &pg, int active);
+
 
 void s0_draw(const Framebuffer &f,
 			 const Shader &s,

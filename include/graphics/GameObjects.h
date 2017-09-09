@@ -47,7 +47,7 @@ struct DirectionalLight
 	// 1
 	glm::mat4 getView() const
 	{
-		return glm::lookAt(-direction + target, target, glm::vec3(0,1,0));
+		return glm::lookAt(-direction, glm::vec3(0,0,0), glm::vec3(0,1,0));
 	} 
 
 	glm::vec4 color; // 2

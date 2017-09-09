@@ -38,10 +38,12 @@ void main()
 		visibility = 0;
 
 	//////////////
-	vec3 L = -(view * inverse(lightView)[2]).xyz;
+	vec3 L = normalize(inverse(view) * vec4(.8,-.8,-.4,0)).xyz; //good!
+	//vec3 L = normalize(view * lightView[2]).xyz;
 	vec3 N = texture(normalMap, vUV).xyz;
 	float lamb = max(0, dot(-L, N));
 
-	outDiffuse = lightColor * intensity * lamb * visibility;
+	outDiffuse = lightColor * intensity * lamb;
 
+	//outDiffuse = ve);
 }

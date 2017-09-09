@@ -57,12 +57,12 @@ void main()
 	dlights[0].range = 10;
 	dlights[0].intensity = 1;
 	dlights[0].color = glm::vec4(1, 1, 0, 1);
-	dlights[0].direction = glm::normalize(glm::vec3(1, -1, -1));
+	dlights[0].direction = glm::normalize(glm::vec3(.8, -.8, -.4));
 
-	dlights[1].range = 10;
-	dlights[1].intensity = 1;
-	dlights[1].color = glm::vec4(0, 0, 1, 1);
-	dlights[1].direction = glm::normalize(glm::vec3(-1, 0, 0));
+	//dlights[1].range = 10;
+	//dlights[1].intensity = 1;
+	//dlights[1].color = glm::vec4(0, 0, 1, 1);
+	//dlights[1].direction = glm::normalize(glm::vec3(-1, 0, 0));
 
 	Shader gpass  = loadShader("../../resources/shaders/gpass.vert", "../../resources/shaders/gpass.frag");
 	Shader cpass  = loadShader("../../resources/shaders/cpass.vert", "../../resources/shaders/cpass.frag");
@@ -116,7 +116,7 @@ void main()
 		loc = slot = 0;
 		clearFramebuffer(screen);
 		setFlags(RenderFlag::NONE);
-		setUniforms(cpass, loc, slot, gbuffer.targets[2], gbuffer.targets[2]);
+		setUniforms(cpass, loc, slot, lbuffer.targets[0]);
 		s0_draw(screen, cpass, quad);
 	}
 	context.term();
