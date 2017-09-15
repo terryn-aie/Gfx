@@ -124,6 +124,10 @@
     <None Include="lpassD.vert" />
     <None Include="mvplite.frag" />
     <None Include="mvplite.vert" />
+    <None Include="particle.frag" />
+    <None Include="particle.geom" />
+    <None Include="particle.vert" />
+    <None Include="particleUpdate.vert" />
     <None Include="quad.frag" />
     <None Include="quad.vert" />
     <None Include="shadow.frag" />

@@ -56,6 +56,21 @@ Shader loadShader(const char *vpath, const char *fpath)
 	return retval;
 }
 
+Shader loadShader(const char *vpath, const char *fpath, const char *gpath)
+{
+	Shader retval = { 0 };
+
+	// load in all of the text as a string/character array
+	// for each shader
+	std::string vsource = fileToString(vpath);
+	std::string fsource = fileToString(fpath);
+	std::string gsource = fileToString(gpath);
+
+	retval = makeShader(vsource.c_str(), fsource.c_str(), gsource.c_str());
+
+	return retval;
+}
+
 #include <random>
 glm::vec4 randColor()
 {

@@ -28,6 +28,7 @@ struct Shader
 };
 
 Shader makeShader(const char *vert_src, const char *frag_src);
+Shader makeShader(const char *vert_src, const char *frag_src, const char *geom_src);
 void freeShader(Shader &s);
 
 

@@ -173,6 +173,90 @@ Shader makeShader(const char *vert_src, const char *frag_src)
 	return retval;
 }
 
+Shader makeShader(const char * vert_src, const char * frag_src, const char * geom_src)
+{
+	Shader retval = { 0 };
+
+	retval.handle = glCreateProgram();
+
+	unsigned vs = glCreateShader(GL_VERTEX_SHADER);
+	unsigned fs = glCreateShader(GL_FRAGMENT_SHADER);
+	unsigned gs = glCreateShader(GL_GEOMETRY_SHADER);
+
+	glShaderSource(vs, 1, &vert_src, 0);
+	glShaderSource(fs, 1, &frag_src, 0);
+	glShaderSource(gs, 1, &geom_src, 0);
+
+	glCompileShader(vs);
+	glCompileShader(fs);
+	glCompileShader(gs);
+
+#ifdef _DEBUG
+	GLint success = GL_FALSE;
+
+	glGetShaderiv(vs, GL_COMPILE_STATUS, &success);
+	if (success == GL_FALSE)
+	{
+		int length = 0;
+		glGetShaderiv(vs, GL_INFO_LOG_LENGTH, &length);
+		char *log = new char[length];
+		glGetShaderInfoLog(vs, length, 0, log);
+		std::cerr << log << std::endl;
+		delete[] log;
+	}
+
+	success = GL_FALSE;
+	glGetShaderiv(fs, GL_COMPILE_STATUS, &success);
+	if (success == GL_FALSE)
+	{
+		int length = 0;
+		glGetShaderiv(fs, GL_INFO_LOG_LENGTH, &length);
+		char *log = new char[length];
+		glGetShaderInfoLog(fs, length, 0, log);
+		std::cerr << log << std::endl;
+		delete[] log;
+	}
+
+	success = GL_FALSE;
+	glGetShaderiv(gs, GL_COMPILE_STATUS, &success);
+	if (success == GL_FALSE)
+	{
+		int length = 0;
+		glGetShaderiv(gs, GL_INFO_LOG_LENGTH, &length);
+		char *log = new char[length];
+		glGetShaderInfoLog(gs, length, 0, log);
+		std::cerr << log << std::endl;
+		delete[] log;
+	}
+#endif
+
+	glAttachShader(retval.handle, vs);
+	glAttachShader(retval.handle, fs);
+	glAttachShader(retval.handle, gs);
+
+	glLinkProgram(retval.handle);
+
+#ifdef _DEBUG
+	success = GL_FALSE;
+	glGetProgramiv(retval.handle, GL_LINK_STATUS, &success);
+	if (success == GL_FALSE)
+	{
+		int length = 0;
+		glGetProgramiv(retval.handle, GL_INFO_LOG_LENGTH, &length);
+		char *log = new char[length];
+		glGetProgramInfoLog(retval.handle, length, 0, log);
+		std::cerr << log << std::endl;
+		delete[] log;
+	}
+#endif _DEBUG
+
+	glDeleteShader(vs);
+	glDeleteShader(fs);
+	glDeleteShader(gs);
+
+	return retval;
+}
+
 void freeShader(Shader &s)
 {
 	glDeleteProgram(s.handle);

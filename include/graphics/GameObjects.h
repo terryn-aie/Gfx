@@ -54,9 +54,48 @@ struct DirectionalLight
 	float intensity; // 3
 };
 
+struct Particle
+{
+	glm::vec3 position;
+	glm::vec3 velocity;
+	float lifetime;
+};
+
+class ParticleSystem
+{
+	void initialize();
+	bool isInitialized;
+
+public:
+	ParticleSystem(unsigned int capacity, float lifetime, float interval);
+	~ParticleSystem();
+
+	unsigned int particleCapacity;
+	Particle * particleBuffer;
+
+	float runtime;
+
+	float spawnInterval;
+	float spawnAccumulator;
+
+	float defaultLifetime;
+	glm::vec4 defaultColor;
+
+	unsigned int activeBufferIdx;
+	unsigned int bufferVAO[2];
+	unsigned int bufferVBO[2];
+
+	Shader drawShader;
+	Shader updateShader;
+
+	void update(float deltaTime);
+	void draw(Camera& cam);
+};
+
 namespace __internal
 {
 	void t_setUniform(const Shader &s, int &loc_io, int &tex_io, const Camera &val);
 	void t_setUniform(const Shader &s, int &loc_io, int &tex_io, const SpecGloss &val);
 	void t_setUniform(const Shader &s, int &loc_io, int &tex_io, const DirectionalLight &val);
+	void t_setUniform(const Shader &s, int &loc_io, int &tex_io, const ParticleSystem &val);
 }

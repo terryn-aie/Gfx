@@ -81,5 +81,17 @@
     <None Include="lpassD.frag">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="particle.frag">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="particle.vert">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="particle.geom">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="particleUpdate.vert">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
