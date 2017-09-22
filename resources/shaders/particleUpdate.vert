@@ -8,11 +8,11 @@ out vec3 oPosition;
 out vec3 oVelocity;
 out float oLifetime;
 
-uniform float time;
-uniform float deltaTime;
+layout(location = 0)uniform float time;
+layout(location = 1)uniform float deltaTime;
 
-uniform float defaultLifetime = 5;
-uniform vec3 emitterPosition = vec3(0,0,0);
+layout(location = 2)uniform float defaultLifetime = 5;
+layout(location = 3)uniform vec3 emitterPosition = vec3(0,0,0);
 
 const float INVERSE_MAX_UINT = 1.0f / 4294967295.0f;
 
@@ -36,9 +36,9 @@ void main()
     {
         uint rSeed = uint(time * 1000.0f) + uint(gl_VertexID);
 
-        oVelocity.x = rand(seed++, 2) - 1;
-        oVelocity.y = rand(seed++, 2) - 1;
-        oVelocity.z = rand(seed++, 2) - 1;
+        oVelocity.x = rand(rSeed++, 2) - 1;
+        oVelocity.y = rand(rSeed++, 2) - 1;
+        oVelocity.z = rand(rSeed++, 2) - 1;
         oVelocity = normalize(oVelocity);
 
         oPosition = emitterPosition;

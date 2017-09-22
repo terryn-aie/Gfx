@@ -71,7 +71,7 @@ void ParticleSystem::initialize()
 	glAttachShader(shaderHandle, us);
 
 	// transformFeedback
-	const char * varyings[] = { "position, velocity, lifetime" };
+	const char * varyings[] = { "oPosition", "oVelocity", "oLifetime" };
 	glTransformFeedbackVaryings(shaderHandle, 3, varyings, GL_INTERLEAVED_ATTRIBS);
 
 	glLinkProgram(shaderHandle);
@@ -89,6 +89,8 @@ void ParticleSystem::initialize()
 		delete[] log;
 	}
 #endif _DEBUG
+
+	updateShader = { shaderHandle };
 
 	// create buffers
 	glGenVertexArrays(2, bufferVAO);
@@ -113,8 +115,6 @@ void ParticleSystem::initialize()
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
-	updateShader = { shaderHandle };
-
 	isInitialized = true;
 }
 
@@ -130,7 +130,7 @@ void ParticleSystem::update(float deltaTime)
 	unsigned int otherBuffer = (activeBufferIdx + 1) % 2;
 
 	glEnable(GL_RASTERIZER_DISCARD);
-	glBindVertexArray(bufferVAO[activeBufferIdx]);
+	glBindVertexArray(bufferVAO[otherBuffer]);
 
 	glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 0, bufferVBO[otherBuffer]);
 	glBeginTransformFeedback(GL_POINTS);
